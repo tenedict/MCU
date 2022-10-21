@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<div class="container">
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">{{ article.title }}</h5>
+      <!-- <h6 class="card-subtitle mb-2 text-muted">{{ article.user }}</h6> -->
+      <p class="card-text">{{ article.content }}</p>
+      <div>
+        <a href="{% url 'article:update' article.pk %}" class="btn btn-primary">수정</a>
+        <a href="{% url 'article:delete' article.pk %}" class="btn btn-primary">삭제</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock body %}
