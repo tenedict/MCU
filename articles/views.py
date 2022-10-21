@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect
+
+from accounts.forms import MyUserChangeForm
 from .models import Review
 from .forms import ReviewForm
 
@@ -31,6 +33,21 @@ def detail(request, pk):
 
 
 def delete(request, pk):
-    review = Review.objects.get(id=pk)
+    review = Review.objects.get(pk=pk)
     review.delete()
     return redirect("articles:index")
+
+def update(request, pk):
+    review = Review.objects.get(pk=pk)
+    if request.method == 'POST':
+        form = ReviewForm(request.POST, request.FILES, instance=review,)
+        if form.is_valid():
+            form.save()
+            return redirect('articles:detail', review.pk)
+    else:
+        form = ReviewForm(instance=review)
+    context = {
+        'form': form
+    }
+    return render(request, 'articles/update.html', context=context)
+
