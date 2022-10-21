@@ -2,43 +2,47 @@
 {% load django_bootstrap5 %}
 
 {% block body %}
-
-<div class="container">
-  <div class="card">
-    <div class="card-body">
-      <h5 class="card-title">{{ review.title }}</h5>
-      <!-- 영화 이름 -->
-      <h6 class="card-subtitle mb-2 text-muted">{{ review.movie_name }}</h6>
-      <!-- 작성자 -->
-      <h6 class="card-subtitle mb-2 text-muted">{{ review.user }}</h6>
-      <p class="card-text">{{ review.content }}</p>
-      <div>
-        <form action="" method="POST">
-          {% csrf_token %}
-
-          {% bootstrap_form comment_form %}
-
-          {% bootstrap_button "저장" button_type="submit" button_class="btn-primary" %}
-        </form>
-      </div>
-
-      <div>
-        {% for comment in review.comment_set.all %}
-        {{ comment.content }}
-        <div>
-          <form action="{% url 'articles:comment_delete' review.pk comment.pk %}" method="POST">
-            {% csrf_token %}
-            {% bootstrap_button button_type="submit" content="댓글삭제" %}
-          </form>
-        </div>
-        {% endfor %}
-      </div>
-      <div>
-        <a href="{% url 'articles:update' review.pk %}" class="btn btn-primary">수정</a>
-        <a href="{% url 'articles:delete' review.pk %}" class="btn btn-primary">삭제</a>
-      </div>
+<div class="card">
+  <div class="d-flex flex-row-reverse mt-2 mx-2">
+    {% if review.user == request.user %}
+    <a href="{% url 'articles:delete' review.pk %}" class="btn btn-primary">삭제</a>
+    <a href="{% url 'articles:update' review.pk %}" class="btn btn-primary">수정</a>
+    {% endif %}
+  </div>
+  <div class="card-body text-center">
+    <h2 class="card-title">{{ review.title }}</h2>
+    <!-- 영화 이름 -->
+    <h6 class="card-subtitle mb-2 text-muted">{{ review.movie_name }}</h6>
+    <!-- 작성자 -->
+    <h6 class="card-subtitle mb-2 text-muted">{{ review.user }}</h6>
+    <p class="card-text">{{ review.content }}</p>
+    <div>
+      <form action="" method="POST" class="w-100">
+        {% csrf_token %}
+  
+        {% bootstrap_form comment_form %}
+  
+        {% bootstrap_button "저장" button_type="submit" button_class="btn-primary" %}
+      </form>
     </div>
   </div>
+
+  <div>
+    {% for comment in review.comment_set.all %}
+    
+    {{ comment.content }}
+    <div>
+      <form action="{% url 'articles:comment_delete' review.pk comment.pk %}" method="POST">
+        {% csrf_token %}
+        {% bootstrap_button button_type="submit" content="댓글삭제" %}
+      </form>
+    </div>
+    {% endfor %}
+  </div>
+
+
+</div>
 </div>
 
-{% endblock body %}
+
+{% endblock %}
