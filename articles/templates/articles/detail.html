@@ -9,7 +9,7 @@
     <a href="{% url 'articles:update' review.pk %}" class="btn btn-primary">수정</a>
     {% endif %}
   </div>
-  
+
   <div class="card-body text-center">
     <h2 class="card-title">{{ review.title }}</h2>
     <!-- 영화 이름 -->
@@ -18,7 +18,7 @@
     <h6 class="card-subtitle mb-2 text-muted">{{ review.user }}</h6>
 
     {% if review.image %}
-      <img src="{{ review.image.url }}" alt="{{ review.image }}" width="400" height="300">
+    <img src="{{ review.image.url }}" alt="{{ review.image }}" width="400" height="300">
     {% endif %}
 
 
@@ -38,22 +38,29 @@
 
   <div>
     {% for comment in review.comment_set.all %}
+    <hr>
+    <div class="d-flex justify-content-between container mb-3">
+      <div>
+        {{ comment.content }}
+      </div>
 
-    {{ comment.content }}
-    {% if comment.user == request.user %}
-    <div>
-      <form action="{% url 'articles:comment_delete' review.pk comment.pk %}" method="POST">
-        {% csrf_token %}
-        {% bootstrap_button button_type="submit" content="댓글삭제" %}
-      </form>
+      <div>
+        {% if comment.user == request.user %}
+        <form action="{% url 'articles:comment_delete' review.pk comment.pk %}" method="POST">
+          {% csrf_token %}
+          {% bootstrap_button button_type="submit" content="댓글삭제" %}
+        </form>
+        {% endif %}
+      </div>
     </div>
-    {% endif %}
+
     {% endfor %}
   </div>
 
 
 </div>
-</div>
+<a href="{% url 'articles:index' %}"><button type="button" class="btn btn-primary w-100 mt-5">목록으로</button>
+  </div>
 
 
-{% endblock %}
+  {% endblock %}

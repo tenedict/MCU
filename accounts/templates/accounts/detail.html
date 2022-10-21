@@ -9,9 +9,9 @@
 <div class="row">
     <div class="col-6">
         <h3>작성한 글</h3>
-        {% if user.article_set %}
-        <p class="text-muted">{{ user.article_set.count }}개를 작성하였습니다.</p>
-        {% for article in user.article_set.all %}
+        {% if user.review_set %}
+        <p class="text-muted">{{ user.review_set.count }}개를 작성하였습니다.</p>
+        {% for article in user.review_set.all %}
         <p>
             {{ forloop.counter }}
             <a href="{% url 'articles:detail' article.pk %}">{{ article.title }}</a>
@@ -37,4 +37,5 @@
     </div>
     <a href="{% url 'articles:index' %}"><button type="button" class="btn btn-primary w-100 mt-5">목록으로</button>
 </div>
+
 {% endblock body %}
