@@ -19,43 +19,53 @@
   {% bootstrap_css %}
   
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
 </head>
 
 <body>
   <nav class="navbar navbar-expand-lg bg-light">
     <div class="container">
-      <a class="navbar-brand" href="{% url 'articles:index' %}">MCU</a>
+      <div>
+        <img src="{% static 'logo.png' %}" alt="logo" width="50" height="50">
+      </div>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-          {% if request.user.is_authenticated %}
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'accounts:logout' %}">로그아웃</a>
+            <a class="nav-link active" href="{% url 'articles:index' %}">집으로</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link active" href="{% url 'accounts:detail' request.user.pk %}">프로필</a>
-          </li>
-          {% else %}
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'accounts:signup' %}">회원가입</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'accounts:login' %}">로그인</a>
-          </li>
-          {% endif %}
           <li class="nav-item">
             <a class="nav-link active" href="{% url 'articles:create' %}">글쓰기</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'articles:intro' %}"> MCU소개 </a>
+            <a class="nav-link active" aria-current="page" href="{% url 'articles:intro' %}">MCU소개</a>
           </li>
         </ul>
       </div>
+
+      <ul class="navbar-nav">
+        {% if request.user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'accounts:logout' %}">로그아웃</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="{% url 'accounts:detail' request.user.pk %}">프로필</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'accounts:signup' %}">회원가입</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'accounts:login' %}">로그인</a>
+        </li>
+        {% endif %}
+      </ul>
     </div>
   </nav>
+  
   <div class="container">
     {% block body %}{% endblock body %}
   </div>
