@@ -71,3 +71,5 @@ def comment_delete(request, pk, comment_pk):
     else:
         return redirect('articles:detail', pk)
 
+def intro(request):
+    return render(request, "articles/intro.html")
