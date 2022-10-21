@@ -16,27 +16,31 @@
     <!-- 작성자 -->
     <h6 class="card-subtitle mb-2 text-muted">{{ review.user }}</h6>
     <p class="card-text">{{ review.content }}</p>
+    {% if request.user.is_authenticated %}
     <div>
       <form action="" method="POST" class="w-100">
         {% csrf_token %}
-  
+
         {% bootstrap_form comment_form %}
-  
+
         {% bootstrap_button "저장" button_type="submit" button_class="btn-primary" %}
       </form>
     </div>
+    {% endif %}
   </div>
 
   <div>
     {% for comment in review.comment_set.all %}
-    
+
     {{ comment.content }}
+    {% if comment.user == request.user %}
     <div>
       <form action="{% url 'articles:comment_delete' review.pk comment.pk %}" method="POST">
         {% csrf_token %}
         {% bootstrap_button button_type="submit" content="댓글삭제" %}
       </form>
     </div>
+    {% endif %}
     {% endfor %}
   </div>
 
