@@ -13,8 +13,10 @@ def index(request):
 def create(request):
     if request.method == "POST":
         # DB에 저장하는 로직
-        review_form = ReviewForm(request.POST)
+        review_form = ReviewForm(request.POST, request.FILES)
         if review_form.is_valid():
+            review = review_form.save(commit = False)
+            review.user = request.user
             review_form.save()
             return redirect("articles:index")
     else:

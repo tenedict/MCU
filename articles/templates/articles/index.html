@@ -1,21 +1,23 @@
 {% extends 'base.html' %}
 {% block body %}
 
-<h1>
-  인덱스 페이지
-</h1>
-
-<h1>
-  인덱스 페이지 수정
-</h1>
 
 
 
 {% for review in reviews %}
-<p>
-  {{ review.movie_name }} |
-  <a href="{% url 'articles:detail' review.pk %}">{{ review.title }}</a>
-</p>
+<div class="m-3">
+  <div class="card d-flex w-100 flex-row align-content-center">
+    {% if review.image %}
+    <img src="{{ review.thumbnail.url }}" class='w-25'>
+    {% endif %}
+    <div class="card-body">
+      <a href="{% url 'articles:detail' review.pk %}">
+        <h5 class="card-title">{{ review.title }}</h5>
+      </a>
+
+    </div>
+  </div>
+</div>
 {% endfor %}
 
 
