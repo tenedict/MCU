@@ -9,12 +9,19 @@
     <a href="{% url 'articles:update' review.pk %}" class="btn btn-primary">수정</a>
     {% endif %}
   </div>
+  
   <div class="card-body text-center">
     <h2 class="card-title">{{ review.title }}</h2>
     <!-- 영화 이름 -->
     <h6 class="card-subtitle mb-2 text-muted">{{ review.movie_name }}</h6>
     <!-- 작성자 -->
     <h6 class="card-subtitle mb-2 text-muted">{{ review.user }}</h6>
+
+    {% if review.image %}
+      <img src="{{ review.image.url }}" alt="{{ review.image }}" width="400" height="300">
+    {% endif %}
+
+
     <p class="card-text">{{ review.content }}</p>
     <div>
       <form action="" method="POST" class="w-100">
