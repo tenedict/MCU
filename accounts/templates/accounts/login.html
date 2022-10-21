@@ -1,13 +1,21 @@
 {% extends 'base.html' %}
 {% load django_bootstrap5 %}
+
 {% block body %}
 
-<h1>로그인</h1>
-<form action="" method="POST">
-    {% csrf_token %}
-    {% bootstrap_form form %}
-    {% bootstrap_button button_type="submit" content="OK" %}
-</form>
-<a href="{% url 'articles:index' %}"><button type="button" class="btn btn-primary w-100 mt-5">목록으로</button>
+<div class="container w-25">
+  <h1 class="mt-5 text-center">로그인</h1>
+  <div>
+    <form action="" method="POST">
+      {% csrf_token %}
+      {% bootstrap_form form %}
+      <div class="d-flex">
+        {% bootstrap_button button_type="submit" content="로그인" %}
+        <a class="btn btn-primary ms-auto" href="{% url 'articles:index' %}">목록으로</a>
+      </div>
+    </form>
+  </div>
+
+</div>
 
 {% endblock body %}
