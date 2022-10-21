@@ -1,8 +1,7 @@
 from django.shortcuts import render, redirect
-
 from accounts.forms import MyUserChangeForm
-from .models import Review
-from .forms import ReviewForm
+from .models import Review, Comment
+from .forms import ReviewForm, CommentForm
 
 # Create your views here.
 def index(request):
@@ -25,9 +24,20 @@ def create(request):
 
 
 def detail(request, pk):
-    review = Review.objects.get(id=pk)
+    review = Review.objects.get(pk=pk)
+    if request.method == 'POST':
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.article = review
+            comment.user = request.user
+            comment.save()
+        return redirect('articles:detail', review.pk)
+    else:
+        comment_form = CommentForm()
     context = {
-        "review": review,
+        "comment_form": comment_form,
+        "review" : review,
     }
     return render(request, "articles/detail.html", context)
 
@@ -50,4 +60,12 @@ def update(request, pk):
         'form': form
     }
     return render(request, 'articles/update.html', context=context)
+
+def comment_delete(request, pk, comment_pk):
+    article = Review.objects.get(pk=pk)
+    if request.user == article.user:
+        Comment.objects.get(pk=comment_pk).delete()
+        return redirect('articles:detail', pk)
+    else:
+        return redirect('articles:detail', pk)
 
