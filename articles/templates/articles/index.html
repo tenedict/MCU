@@ -1,8 +1,11 @@
 {% extends 'base.html' %}
 {% block body %}
 
+{% if reviews %}
 
-
+{% else %}
+  <h1> 글이 없습니다. 작성해 주세요.  </h1>
+{% endif %}
 
 {% for review in reviews %}
 <div class="m-3">
