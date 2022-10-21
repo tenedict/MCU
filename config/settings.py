@@ -158,7 +158,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # 유저 정보
 
-AUTH_USER_MODEL = "accounts.User"
+# AUTH_USER_MODEL = "accounts.User"
 
 # 메세지 설정
 # https://docs.djangoproject.com/en/4.1/ref/contrib/messages/

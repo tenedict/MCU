@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block body %}
+
+  <h1>
+    인덱스 페이지
+  </h1>
+
+  <h1>
+    인덱스 페이지 수정
+  </h1>
+
+
+
+  {% for review in reviews %}
+  <p>
+    {{ review.movie_name }}   |    
+    <a href="#">{{ review.title }}</a>
+  </p>
+  {% endfor %}    
+
+
+{% endblock %}
