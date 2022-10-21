@@ -3,14 +3,14 @@
 
 {% block body %}
 
-<div class="container w-50">
+<div class="container w-50 mb-5">
   <h1 class="mt-5 mb-3">글쓰기</h1>
   <form action="" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
 
     {% bootstrap_form review_form %}
     {% bootstrap_button content="작성완료" button_type="submit" button_class="btn-primary" %}
-    <a href="{% url 'articles:index' %}" class="btn btn-primary">목록으로</a>
+    <a href="{% url 'articles:index' %}" class="btn btn-primary ms-2">목록으로</a>
   </form>
 </div>
 

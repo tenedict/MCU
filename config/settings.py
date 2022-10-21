@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 OTHERS = [
+    "index",
     "accounts",
     "articles",
     "imagekit",

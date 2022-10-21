@@ -58,3 +58,13 @@ a {
   border: none;
   box-shadow: 0.5rem 1rem 2rem 0.3rem rgb(148, 148, 148);
 } */
+
+.mcu-greetings-1 {
+  animation: fadeInDown;
+  animation-duration: 3s;
+}
+
+.mcu-greetings-2 {
+  animation: fadeIn;
+  animation-duration: 5s;
+}
