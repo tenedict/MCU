@@ -2,69 +2,61 @@
 {% load django_bootstrap5 %}
 
 {% block body %}
-<div class="card">
-  <div class="d-flex flex-row-reverse mt-2 mx-2">
-    {% if review.user == request.user %}
-    <a href="{% url 'articles:delete' review.pk %}" class="btn btn-warning">삭제</a>
-    <a href="{% url 'articles:update' review.pk %}" class="btn btn-danger">수정</a>
-    {% endif %}
-  </div>
-
-  <div class="card-body text-center">
-    <h2 class="card-title">{{ review.title }}</h2>
-    <!-- 영화 이름 -->
-    <h6 class="card-subtitle mb-2 text-muted">{{ review.movie_name }}</h6>
-    <!-- 작성자 -->
-    <h6 class="card-subtitle mb-2 text-muted">{{ review.user }}</h6>
-
-    {% if review.image %}
-    <img src="{{ review.image.url }}" alt="{{ review.image }}" width="400" height="300">
-    {% endif %}
-
-
-    <p class="card-text">{{ review.content }}</p>
-    {% if request.user.is_authenticated %}
-    <div>
-      <form action="" method="POST" class="w-100">
-        {% csrf_token %}
-
-        {% bootstrap_form comment_form %}
-
-        {% bootstrap_button "저장" button_type="submit" button_class="btn-primary" %}
-      </form>
-    </div>
-    {% endif %}
-  </div>
-
-  <div>
-    {% for comment in review.comment_set.all %}
-    <hr>
-    <div class="d-flex justify-content-between container mb-3">
-      <div>
-        <span class="fs-2 fw-bold">
-        {{ comment.user }}
-        </span>
-        <br>
-        {{ comment.content }}
+<div class="container">
+  <div class="card p-5">
+    <div class="card-body">
+      <h1 class="card-title mb-0">{{ review.title }}</h1>
+      <div class="d-flex mb-5">
+        <!-- 영화 이름 -->
+        <h6 class="card-subtitle text-muted ms-1">{{ review.movie_name }}</h6>
+        <!-- 작성자 -->
+        <h6 class="card-subtitle ms-auto me-3 text-muted">{{ review.user }}</h6>
+      </div>
+      {% if review.image %}
+      <img src="{{ review.image.url }}" alt="{{ review.image }}" width="400" height="300" class="m-5">
+      {% endif %}
+      <p class="card-text lead my-5">{{ review.content }}</p>
+      <div class="d-flex">
+        <a href="{% url 'articles:index' %}"><button type="button" class="btn btn-primary">리뷰 목록</button>
+          {% if review.user == request.user %}
+          <a href="{% url 'articles:update' review.pk %}" class="btn btn-primary ms-auto" style="width: 5rem;">수정</a>
+          <a href="{% url 'articles:delete' review.pk %}" class="btn btn-danger ms-3" style="width: 5rem;">삭제</a>
+          {% endif %}
       </div>
 
-      <div>
-        {% if comment.user == request.user %}
-        <form action="{% url 'articles:comment_delete' review.pk comment.pk %}" method="POST">
+      {% if request.user.is_authenticated %}
+      <div class="my-5">
+        <form action="" method="POST" class="w-100">
           {% csrf_token %}
-          {% bootstrap_button button_type="submit" content="댓글삭제" %}
+
+          {% bootstrap_form comment_form %}
+
+          {% bootstrap_button "저장" button_type="submit" button_class="btn-primary" style="width: 5rem;" %}
         </form>
-        {% endif %}
       </div>
+      {% endif %}
     </div>
-
-    {% endfor %}
+    <table class="table table-borderless">
+      <tbody>
+        {% for comment in review.comment_set.all %}
+        <tr>
+          <th class="col-1 text-center">{{ comment.user }}</th>
+          <td class="col-10">
+            {{ comment.content }}
+          </td>
+          <td class="col-1 text-center">
+            {% if comment.user == request.user %}
+            <a href="{% url 'articles:comment_delete' review.pk comment.pk %}">
+              삭제
+            </a>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
   </div>
-
+</div>
 
 </div>
-<a href="{% url 'articles:index' %}"><button type="button" class="btn btn-primary w-100 mt-5">목록으로</button>
-  </div>
-
-
-  {% endblock %}
+{% endblock %}
