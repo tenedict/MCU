@@ -28,15 +28,16 @@
     <div class="row">
         <div class="col-6">
             <h3>작성한 글</h3>
+            {% if user.review_set.count > 0 %}
             <table class="table">
                 <thead class="table-hover table-bordered">
                     <tr>
-                        <th class="col-1">번호</th>
-                        <th class="col-5">제목</th>
+                        <th class="col-2">번호</th>
+                        <th class="col-4">제목</th>
                     </tr>
                 </thead>
+
                 <tbody class="table-group-divider">
-                    {% if user.review_set %}
                     <tr>
                         <th class="text-muted">작성한 글 개수</th>
                         <td class="text-muted">{{ user.review_set.count }} 개의 글을 작성하였습니다.</td>
@@ -47,23 +48,23 @@
                         <td><a href="{% url 'articles:detail' article.pk %}">{{ article.title }}</a></td>
                     </tr>
                     {% endfor %}
-                    {% else %}
-                    <p class="lead">작성한 글이 없습니다.</p>
-                    {% endif %}
                 </tbody>
             </table>
+            {% else %}
+            <p class="lead">작성한 글이 없습니다.</p>
+            {% endif %}
         </div>
         <div class="col-6">
             <h3>작성한 댓글</h3>
+            {% if user.comment_set.count > 0 %}
             <table class="table">
                 <thead class="table-hover table-bordered">
                     <tr>
-                        <th class="col-1">번호</th>
-                        <th class="col-5">내용</th>
+                        <th class="col-2">번호</th>
+                        <th class="col-4">내용</th>
                     </tr>
                 </thead>
                 <tbody class="table-group-divider">
-                    {% if user.comment_set %}
                     <tr>
                         <th class="text-muted">작성한 댓글 개수</th>
                         <td class="text-muted">{{ user.comment_set.count }} 개의 댓글을 작성하였습니다.</td>
@@ -74,11 +75,11 @@
                         <td><a href="{% url 'articles:detail' comment.article_id %}">{{ comment.content }}</a></td>
                     </tr>
                     {% endfor %}
-                    {% else %}
-                    <p class="lead">작성한 댓글이 없습니다.</p>
-                    {% endif %}
                 </tbody>
             </table>
+            {% else %}
+            <p class="lead">작성한 댓글이 없습니다.</p>
+            {% endif %}
         </div>
     </div>
 
