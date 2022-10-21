@@ -4,7 +4,7 @@ from .forms import ReviewForm
 
 # Create your views here.
 def index(request):
-    reviews = Review.objects.all()
+    reviews = Review.objects.order_by("-id")
     context = {"reviews": reviews}
     return render(request, "articles/index.html", context)
 
@@ -23,14 +23,14 @@ def create(request):
 
 
 def detail(request, pk):
-    article = Article.objects.get(id=pk)
+    review = Review.objects.get(id=pk)
     context = {
-        "article": article,
+        "review": review,
     }
     return render(request, "articles/detail.html", context)
 
 
 def delete(request, pk):
-    article = Article.objects.get(id=pk)
-    article.delete()
+    review = Review.objects.get(id=pk)
+    review.delete()
     return redirect("articles:index")

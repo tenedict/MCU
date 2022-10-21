@@ -5,12 +5,15 @@
 <div class="container">
   <div class="card">
     <div class="card-body">
-      <h5 class="card-title">{{ article.title }}</h5>
-      <!-- <h6 class="card-subtitle mb-2 text-muted">{{ article.user }}</h6> -->
-      <p class="card-text">{{ article.content }}</p>
+      <h5 class="card-title">{{ review.title }}</h5>
+      <!-- 영화 이름 -->
+      <h6 class="card-subtitle mb-2 text-muted">{{ review.movie_name }}</h6>
+      <!-- 작성자 -->
+      <h6 class="card-subtitle mb-2 text-muted">{{ review.user }}</h6>
+      <p class="card-text">{{ review.content }}</p>
       <div>
-        <a href="{% url 'article:update' article.pk %}" class="btn btn-primary">수정</a>
-        <a href="{% url 'article:delete' article.pk %}" class="btn btn-primary">삭제</a>
+        <a href="{% url 'articles:update' review.pk %}" class="btn btn-primary">수정</a>
+        <a href="{% url 'articles:delete' review.pk %}" class="btn btn-primary">삭제</a>
       </div>
     </div>
   </div>
