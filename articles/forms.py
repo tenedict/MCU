@@ -5,7 +5,7 @@ class ReviewForm(forms.ModelForm):
 
     class Meta:
         model = Review
-        fields = ['title', 'content','grade', 'image', 'thumbnail',]
+        fields = ['title', 'movie_name', 'content','grade', 'image', 'thumbnail',]
 
 class CommentForm(forms.ModelForm):
     class Meta:
@@ -15,7 +15,7 @@ class CommentForm(forms.ModelForm):
             "content": forms.Textarea(
                 attrs={
                     "placeholder": "",
-                    "style": "height: 50px; resize: none; width: 80%;",
+                    "style": "height: 50px; resize: none; width: 100%;",
                 }
             ),
         }

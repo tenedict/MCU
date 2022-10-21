@@ -14,9 +14,9 @@ class Review(models.Model):
     updated_at = models.DateTimeField(auto_now = True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     thumbnail = ProcessedImageField(upload_to='images/', blank=True,
-                                processors=[ResizeToFill(80,80)],
+                                processors=[ResizeToFill(1200,960)],
                                 format='JPEG',
-                                options={'quality': 40})
+                                options={'quality': 80})
     image = models.ImageField(upload_to='images/', blank=True)
 
 class Comment(models.Model):

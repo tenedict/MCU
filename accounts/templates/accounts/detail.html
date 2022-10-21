@@ -36,12 +36,12 @@
           </tr>
         </thead>
         <tbody class="table-group-divider">
-          {% if user.article_set %}
+          {% if user.review_set %}
           <tr>
             <th class="text-muted">작성한 글 개수</th>
-            <td class="text-muted">{{ user.article_set.count }} 개의 글을 작성하였습니다.</td>
+            <td class="text-muted">{{ user.review_set.count }} 개의 글을 작성하였습니다.</td>
           </tr>
-          {% for article in user.article_set.all %}
+          {% for article in user.review_set.all %}
           <tr>
             <th>{{ forloop.counter }}</th>
             <td><a href="{% url 'articles:detail' article.pk %}">{{ article.title }}</a></td>
@@ -84,6 +84,5 @@
 
   <a href="{% url 'articles:index' %}" class="btn btn-primary">목록으로</a>
 </div>
-
 
 {% endblock body %}
