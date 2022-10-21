@@ -5,8 +5,8 @@
 <div class="card">
   <div class="d-flex flex-row-reverse mt-2 mx-2">
     {% if review.user == request.user %}
-    <a href="{% url 'articles:delete' review.pk %}" class="btn btn-primary">삭제</a>
-    <a href="{% url 'articles:update' review.pk %}" class="btn btn-primary">수정</a>
+    <a href="{% url 'articles:delete' review.pk %}" class="btn btn-warning">삭제</a>
+    <a href="{% url 'articles:update' review.pk %}" class="btn btn-danger">수정</a>
     {% endif %}
   </div>
 
@@ -41,6 +41,10 @@
     <hr>
     <div class="d-flex justify-content-between container mb-3">
       <div>
+        <span class="fs-2 fw-bold">
+        {{ comment.user }}
+        </span>
+        <br>
         {{ comment.content }}
       </div>
 
