@@ -4,31 +4,36 @@
 
 <div class="container">
   <div class="mt-5">
-    <h1 class="mb-3">{{ user.username }}님의 프로필</h1>
+    <h1 class="mb-3">{{ other_user.username }}님의 프로필</h1>
     <table class="table table-hover table-bordered">
       <tbody class="table-group-divider">
         <tr>
           <th class="col-1">이름</th>
-          <td class="col-11">{{ user.full_name }}</td>
+          <td class="col-11">{{ other_user.full_name }}</td>
         </tr>
         <tr>
           <th class="col-1">이메일</th>
-          <td>{{ user.email }}</td>
+          <td>{{ other_user.email }}</td>
+        </tr>
+        <tr>
+          <th class="col-1">연락처</th>
+          <td>{{ other_user.userphonenumber.phone }}</td>
         </tr>
         <tr>
           <th class="col-1">가입일</th>
-          <td>{{ user.date_joined|date:"y년 m월 d일 f:s" }}</td>
+          <td>{{ other_user.date_joined|date:"y년 m월 d일 f:s" }}</td>
         </tr>
       </tbody>
     </table>
+    {% if other_user == now_user or now_user.is_superuser %}
     <div class="d-flex mt-3 mb-5">
-      <a href="{% url 'accounts:update' user.pk %}" class="btn btn-primary me-3">프로필 수정</a>
-      <a href="{% url 'articles:index' %}" class="btn btn-primary">목록으로</a>
-      <a href="{% url 'accounts:delete' %}" class="btn btn-danger ms-auto">계정 탈퇴</a>
+      <a href="{% url 'accounts:update' other_user.pk %}" class="btn btn-primary ms-0">프로필 수정</a>
+      <a href="{% url 'accounts:password' other_user.pk %}" class="btn btn-primary mx-3">비밀번호 변경</a>
+      <a href="{% url 'articles:reviews' %}" class="btn btn-primary mx-0">리뷰 목록</a>
+      <a href="{% url 'accounts:withdrawal' other_user.pk %}" class="btn btn-danger ms-auto">계정 탈퇴</a>
     </div>
-
+    <h1 class="text-center my-5">작성 리뷰 정보</h1>
     <div class="row mb-4">
-
       <table class="table table-borderless">
         <tbody>
           <tr>
@@ -91,6 +96,9 @@
         </tbody>
       </table>
     </div>
+    {% else %}
+    <h1 class="text-center my-5">계정 주인이 아니라서 읽을 수 없습니다.</h1>
+    {% endif %}
   </div>
 </div>
 

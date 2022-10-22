@@ -19,8 +19,8 @@ from django.urls import path, include
 # 정적 파일 설정
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-from django.conf.urls.static import static
 from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path("admin/", admin.site.urls),

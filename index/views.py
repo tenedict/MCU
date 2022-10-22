@@ -4,10 +4,17 @@ from django.shortcuts import render
 def index(request):
     return render(request, "index/index.html")
 
+
 def intro(request):
     return render(request, "index/intro.html")
 
+
+def contrib(request):
+    return render(request, "index/contrib.html")
+
+
 # 에러 처리
+
 
 def error_400(request, exception):
     return render(request, "400.html", status=400)

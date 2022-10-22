@@ -1,7 +1,7 @@
 * {
-  font-family: 'NanumSquareRound';
+  font-family: 'NanumSquareNeoBold';
   scroll-snap-type: y mandatory;
-  scroll-padding: 17rem;
+  scroll-padding: 15rem;
   scroll-behavior: smooth;
 }
 
@@ -59,12 +59,18 @@ a {
   box-shadow: 0.5rem 1rem 2rem 0.3rem rgb(148, 148, 148);
 } */
 
-.mcu-greetings-1 {
+.mcu-greetings {
   animation: fadeInDown;
-  animation-duration: 3s;
+  animation-duration: 2s;
 }
 
+/* 
 .mcu-greetings-2 {
   animation: fadeIn;
-  animation-duration: 5s;
+  animation-duration: 3s;
+} */
+
+.contrib-item {
+  width: 100%;
+  height: 500px;
 }
