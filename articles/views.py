@@ -216,7 +216,7 @@ def add_like(request, pk):
     except:
         like_ = Like.objects.create(article=target_article, user=target_user)
         like_.save()
-        messages.success(request, "추천!")
+        messages.warning(request, "추천!")
         return redirect("articles:detail", target_article.pk)
 
 

@@ -40,7 +40,7 @@ wd = [
 
 def signup(request):
     if request.user.username:
-        messages.warning(request, "이미 로그인 하셨군요!")
+        messages.warning(request, "이미 가입 하셨군요!")
         return render(request, "400.html", status=400)
     else:
         if request.method == "POST":
@@ -64,9 +64,9 @@ def signup(request):
                 g = random.choice(greetings)
                 c = random.choice(check_user_name)
                 if user.full_name:
-                    messages.info(request, f"{user.full_name}님, {g}")
+                    messages.success(request, f"{user.full_name}님, {g}")
                 else:
-                    messages.info(request, f"익명의 사용자님, {g}")
+                    messages.success(request, f"익명의 사용자님, {g}")
                     messages.warning(request, f"{c}")
                 return redirect("articles:reviews")
         else:
@@ -92,9 +92,9 @@ def login(request):
                 g = random.choice(greetings)
                 c = random.choice(check_user_name)
                 if form.get_user().full_name:
-                    messages.info(request, f"{form.get_user().full_name}님, {g}")
+                    messages.error(request, f"{form.get_user().full_name}님, {g}")
                 else:
-                    messages.info(request, f"익명의 사용자님, {g}")
+                    messages.error(request, f"익명의 사용자님, {g}")
                     messages.warning(request, f"{c}")
                 return redirect(request.GET.get("next") or "articles:reviews")
         else:
@@ -110,11 +110,11 @@ def login(request):
 def logout(request):
     b = random.choice(bye)
     if request.user.full_name:
-        messages.info(request, f"{request.user.full_name}님, {b}")
+        messages.error(request, f"{request.user.full_name}님, {b}")
     else:
-        messages.info(request, f"익명의 사용자님, {b}")
+        messages.error(request, f"익명의 사용자님, {b}")
     logout_(request)
-    return redirect("articles:reviews")
+    return redirect(request.META.get("HTTP_REFERER", "redirect_if_referer_not_found"))
 
 
 # 회원정보조회
@@ -136,8 +136,8 @@ def update(request, pk):
     if other_user.username != "admin":
         phone = other_user.userphonenumber
     else:
-        messages.warning(request, "관리자 계정은 일반 페이지에서 수정이 불가능합니다.")
-        messages.info(request, "관리자 페이지를 이용해주세요.")
+        messages.error(request, "관리자 계정은 일반 페이지에서 수정이 불가능합니다.")
+        messages.warning(request, "관리자 페이지를 이용해주세요.")
         return redirect("accounts:detail", other_user.pk)
     if request.method == "POST":
         form = CustomUserChangeForm(request.POST, instance=other_user)
@@ -178,9 +178,9 @@ def withdrawal(request, pk):
     b = random.choice(bye)
     if request.method == "POST":
         if request.user.full_name:
-            messages.info(request, f"{request.user.full_name}!, {w}")
+            messages.success(request, f"{request.user.full_name}!, {w}")
         else:
-            messages.info(request, f"{b}")
+            messages.success(request, f"{b}")
         request.user.delete()
         logout_(request)
         return redirect("articles:reviews")
